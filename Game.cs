@@ -116,12 +116,13 @@ namespace HelloWorld
             InitItems();
             shopInventory = new Item[] { _arrow, _shield, _gem };
             _shop = new Shop(shopInventory);
+            OpenShopMenu();
         }
 
         //Repeated until the game ends
         public void Update()
         {
-            OpenShopMenu();
+            
         }
 
         //Performed once when the game ends
