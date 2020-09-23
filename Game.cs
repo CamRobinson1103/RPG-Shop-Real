@@ -24,7 +24,7 @@ namespace HelloWorld
         {
             Start();
 
-            while (_gameover == false) ;
+            while (_gameover == false);
             {
                 Update();
             }
@@ -121,7 +121,7 @@ namespace HelloWorld
         //Repeated until the game ends
         public void Update()
         {
-            
+            OpenShopMenu();
         }
 
         //Performed once when the game ends
