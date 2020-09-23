@@ -34,10 +34,12 @@ namespace HelloWorld
         private void InitItems()
         {
             _arrow.name = "Arrow";
-            _shield.name = "shield";
-            _gem.name = "Gem";
             _arrow.cost = 10;
+
+            _shield.name = "shield";
             _shield.cost = 15;
+
+            _gem.name = "Gem";
             _gem.cost = 1000;
         }
 
@@ -116,13 +118,12 @@ namespace HelloWorld
             InitItems();
             shopInventory = new Item[] { _arrow, _shield, _gem };
             _shop = new Shop(shopInventory);
-            OpenShopMenu();
         }
 
         //Repeated until the game ends
         public void Update()
         {
-            
+            OpenShopMenu();
         }
 
         //Performed once when the game ends
