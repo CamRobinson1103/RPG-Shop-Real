@@ -9,35 +9,36 @@ namespace HelloWorld
         private int _gold;
         private Item[] _inventory;
 
-
         public Player()
         {
             _gold = 100;
-            //New array
+            //Creates a new item array with three items with default values
             _inventory = new Item[3];
         }
-                //Shield             0
+
         public bool Buy(Item item, int inventoryIndex)
         {
-            if(_gold >= item.cost)
+            //Check to see if the player can afford the item
+            if (_gold >= item.cost)
             {
-                //Pays for item
+                //Pay for item.
                 _gold -= item.cost;
+                //Place item in inventory array.
                 _inventory[inventoryIndex] = item;
                 return true;
             }
+
             return false;
         }
+
         public int GetGold()
         {
             return _gold;
         }
+
         public Item[] GetInventory()
         {
             return _inventory;
         }
-
-
-
     }
 }

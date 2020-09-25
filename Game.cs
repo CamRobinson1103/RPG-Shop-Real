@@ -6,9 +6,10 @@ namespace HelloWorld
 {
     struct Item
     {
-        public int cost;
         public string name;
+        public int cost;
     }
+
     class Game
     {
         private Player _player;
@@ -16,18 +17,18 @@ namespace HelloWorld
         private Item _arrow;
         private Item _shield;
         private Item _gem;
-        private Item[] shopInventory;
-        private bool _gameover;
-
+        private Item[] _shopInventory;
+        private bool _gameOver;
         //Run the game
         public void Run()
         {
             Start();
 
-            while (_gameover == false);
+            while (_gameOver == false)
             {
                 Update();
             }
+
             End();
         }
 
@@ -35,17 +36,15 @@ namespace HelloWorld
         {
             _arrow.name = "Arrow";
             _arrow.cost = 10;
-
-            _shield.name = "shield";
+            _shield.name = "Shield";
             _shield.cost = 15;
-
-            _gem.name = "Gem";
-            _gem.cost = 1000;
+            _gem.name = "Ghem";
+            _gem.cost = 50;
         }
 
         public void PrintInventory(Item[] inventory)
         {
-            for(int i = 0; i < inventory.Length; i++)
+            for (int i = 0; i < inventory.Length; i++)
             {
                 Console.WriteLine((i + 1) + ". " + inventory[i].name + inventory[i].cost);
             }
@@ -53,71 +52,88 @@ namespace HelloWorld
 
         private void OpenShopMenu()
         {
-            //Buying Items
-            Console.WriteLine("OI!! Hurry and pick sominm, eh!!");
+            //Print a welcome message and all the choices to the screen
+            Console.WriteLine("Welcome! Please selct an item.");
+            PrintInventory(_shopInventory);
 
-            PrintInventory(shopInventory);
+            //Get player input
             char input = Console.ReadKey().KeyChar;
+
+            //Set itemIndex to be the indec the player selected
             int itemIndex = -1;
             switch (input)
             {
                 case '1':
-                    itemIndex = 0;
-                    break;
-
+                    {
+                        itemIndex = 0;
+                        break;
+                    }
                 case '2':
-                    itemIndex = 1;
-                    break;
-
+                    {
+                        itemIndex = 1;
+                        break;
+                    }
                 case '3':
-                    itemIndex = 2;
-                    break;
-
+                    {
+                        itemIndex = 2;
+                        break;
+                    }
                 default:
-                    return;
-
+                    {
+                        return;
+                    }
             }
-            if (_player.GetGold() < shopInventory[itemIndex].cost)
+
+            //If the player can't afford the item print a message to let them know
+            if (_player.GetGold() < _shopInventory[itemIndex].cost)
             {
-                Console.WriteLine("Get ya money up instead of ya funny up!");
+                Console.WriteLine("You cant afford this.");
                 return;
             }
 
-            Console.WriteLine("Where this goin?");
+            //Ask the player to replace a slot in their own inventory
+            Console.WriteLine("Choose a slot to replace.");
+            PrintInventory(_player.GetInventory());
+            //Get player input
+            input = Console.ReadKey().KeyChar;
 
-            PrintInventory(shopInventory);
-
-             input = Console.ReadKey().KeyChar;
+            //Set the value of the playerIndex based on the player's choice
             int playerIndex = -1;
             switch (input)
             {
                 case '1':
-                    playerIndex = 0;
-                    break;
-
+                    {
+                        playerIndex = 0;
+                        break;
+                    }
                 case '2':
-                    playerIndex = 1;
-                    break;
-
+                    {
+                        playerIndex = 1;
+                        break;
+                    }
                 case '3':
-                    playerIndex = 2;
-                    break;
-
+                    {
+                        playerIndex = 2;
+                        break;
+                    }
                 default:
-                    return;
-
+                    {
+                        return;
+                    }
             }
+
+            //Sell item to player and replace the weapon at the index with the newly purchased weapon
             _shop.Sell(_player, itemIndex, playerIndex);
         }
-             
+
         //Performed once when the game begins
         public void Start()
         {
-            _gameover = false;
+            _gameOver = false;
             _player = new Player();
             InitItems();
-            shopInventory = new Item[] { _arrow, _shield, _gem };
-            _shop = new Shop(shopInventory);
+            _shopInventory = new Item[] { _arrow, _shield, _gem };
+            _shop = new Shop(_shopInventory);
         }
 
         //Repeated until the game ends
@@ -129,7 +145,7 @@ namespace HelloWorld
         //Performed once when the game ends
         public void End()
         {
-            
+
         }
     }
 }
